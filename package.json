@@ -1,0 +1,22 @@
+{
+    "name": "catstronauts-fullstack",
+    "homepage": "https://github.com/eduairet/odyssey-lift-off#readme",
+    "version": "1.0.0",
+    "description": "Fullstack app for Apollo GraphQL certification",
+    "main": "README.md",
+    "scripts": {
+        "server": "cd server && npm start",
+        "client": "cd client && npm start"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/eduairet/odyssey-lift-off.git"
+    },
+    "keywords": [
+        "apollo",
+        "graphql",
+        "fullstack"
+    ],
+    "author": "Eduardo Aire",
+    "license": "MIT"
+}

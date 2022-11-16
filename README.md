@@ -162,13 +162,24 @@ This demo fullstack app contains a server and client folders:
     ```
 
     -   You can always define your mock data using JavaScript objects that have function as values
+
         ```JavaScript
         const mocks = {
             // Define your mock properties here
             MyType: () => ({id: () => 'myID', title: () => 'myTitle'})
         }
         ```
+
         -   You can use this variable instead the `mocks: true` entry inside your `ApolloServer`
+
+    -   When everything is set you can now go to `http://localhost:4000` press the `Query your server` button (if it's not automatic) and play with your queries using the **Apollo Explorer Interface**
+        ![Playground](./images/graphsandbox.png)
+        -   In the documentation panel you'll see your types defined in the schema
+            -   This panel has several useful functions, like adding types by clicking them, checking the type structure, adding just scalar or object types, etc
+            -   You can also save your queries for future inquiries
+        -   In the middle of the screen there will be a query editor where you can write your queries
+            -   When your query is ready just press the run button at the right-top corner of the editor
+        -   The last panel at the right will display your query results
 
 ### Frontend implementation
 
