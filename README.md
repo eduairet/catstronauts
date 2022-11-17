@@ -183,6 +183,81 @@ This demo fullstack app contains a server and client folders:
 
 ### Frontend implementation
 
+-   The way we use Apollo in the client side is by retrieving objects provided by our queries and using them inside the UI
+-   We need to install GraphQL and Apollo Client
+    ```Bash
+    npm install graphql @apollo/client
+    ```
+-   Then we'll set up our client in our app's root directory
+
+    ```JavaScript
+    import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+    ```
+
+    -   `ApolloClient` - Client class that needs the URI where the our GraphQL is served and the required cache to avoid overquering
+    -   `InMemoryCache` - This will help us to manage our cached queries
+    -   `Apollo Provider` - This is the hook that is going to manage our data inside the app
+    -   Our app now will look like this
+
+        ```JSX
+        const client = new ApolloClient({
+            // URI that has the graph
+            uri: 'http://localhost:4000',
+            // This cache helps to recycle queries
+            cache: new InMemoryCache(),
+        });
+
+        ReactDOM.render(
+            {/* This component uses the React context API and passes the client as props */}
+            <ApolloProvider client={client}>
+                <GlobalStyles />
+                <Pages />
+            </ApolloProvider>,
+            document.getElementById('root')
+        );
+        ```
+
+-   With all of this set you can now use queries on any page or component inside your app
+
+    -   You'll need the `useQuery` hook to achive that
+
+        ```JSX
+        import React from 'react';
+        import { useQuery, gql } from '@apollo/client';
+        import GuestCard from '../components/GuestCard';
+        //All Caps name by convention
+        const NAMES = gql`
+            query GetGuests {
+                guestsForEvent {
+                    id
+                    name
+                    workshop {
+                        id
+                        name
+                    }
+                    avatar
+                }
+            }
+        `;
+        export default function Guests() {
+            const { loading, error, data } = useQuery(TRACKS);
+            return (
+                <div>
+                    {loading
+                        ? 'Loading...'
+                        : error
+                        ? `Error: ${error}`
+                        : data?.guestsForEvent.map((guest, i) => (
+                            <GuestCard
+                                key={`${guest.title}${i.toFixed(0, 2)}`}
+                                guest={guest}
+                            />
+                        ))}
+                </div>
+            );
+        }
+        ```
+
 ## Apollo Help
 
 -   [Odyssey topic in our community forums](https://community.apollographql.com/tags/c/help/6/odyssey).
